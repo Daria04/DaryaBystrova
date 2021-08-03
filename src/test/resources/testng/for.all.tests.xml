@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="suiteForAllTests" >
+    <test name="TestingAll" >
+        <packages>
+            <package name="com.epam.tc.hw1"/>
+            <package name="com.epam.tc.hw1.powoperations"/>
+        </packages>
+    </test>
+</suite>
+

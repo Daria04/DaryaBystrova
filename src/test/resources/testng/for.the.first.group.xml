@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="suiteForTheFirstGroupOfTests" >
+    <test name="TestingAddAndSubOperations" >
+        <groups>
+            <run>
+                <include name="firstGroup"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.epam.tc.hw1"/>
+        </packages>
+    </test>
+</suite>
