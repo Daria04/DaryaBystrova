@@ -2,13 +2,10 @@ package com.epam.tc.hw1;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.epam.tat.module4.Calculator;
 import com.epam.tc.hw1.dataprovider.DataOperations;
 import org.testng.annotations.Test;
 
-public class SubtractOperations {
-
-    private final Calculator calculator = new Calculator();
+public class SubtractOperations extends BaseTest {
 
     @Test(groups = {"firstGroup"}, dataProvider = "testLong", dataProviderClass = DataOperations.class)
     public void subOfLongNumbersTest(long x, long y) {

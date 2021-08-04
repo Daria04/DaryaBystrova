@@ -13,8 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <maven-surefire-plugin.suiteXmlFile>${project.build.testOutputDirectory}/testng/for.the.first.group.xml
-        </maven-surefire-plugin.suiteXmlFile>
+        <testng.configs.path>${project.build.testOutputDirectory}/testng</testng.configs.path>
 
         <testng.version>7.4.0</testng.version>
         <assertj-core.version>3.20.2</assertj-core.version>
@@ -29,7 +28,7 @@
                 <version>3.0.0-M5</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${maven-surefire-plugin.suiteXmlFile}</suiteXmlFile>
+                        <suiteXmlFile>${testng.suite.file}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -60,22 +59,22 @@
         <profile>
             <id>for_all_tests_plugin</id>
             <properties>
-                <maven-surefire-plugin.suiteXmlFile>${project.build.testOutputDirectory}/testng/for.all.tests.xml
-                </maven-surefire-plugin.suiteXmlFile>
+                <testng.suite.file>${testng.configs.path}/for.all.tests.xml</testng.suite.file>
             </properties>
         </profile>
         <profile>
             <id>for_the_second_group_plugin</id>
             <properties>
-                <maven-surefire-plugin.suiteXmlFile>${project.build.testOutputDirectory}/testng/for.the.second.group.xml
-                </maven-surefire-plugin.suiteXmlFile>
+                <testng.suite.file>${testng.configs.path}/for.the.second.group.xml</testng.suite.file>
             </properties>
         </profile>
         <profile>
             <id>for_the_first_group_plugin</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
-                <maven-surefire-plugin.suiteXmlFile>${project.build.testOutputDirectory}/testng/for.the.first.group.xml
-                </maven-surefire-plugin.suiteXmlFile>
+                <testng.suite.file>${testng.configs.path}/for.the.first.group.xml</testng.suite.file>
             </properties>
         </profile>
     </profiles>

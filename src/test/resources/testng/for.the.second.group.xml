@@ -8,7 +8,8 @@
         </groups>
         <packages>
             <package name="com.epam.tc.hw1"/>
-            <package name="com.epam.tc.hw1.powoperations"/>
+            <package name="com.epam.tc.hw1.pow.operations"/>
         </packages>
     </test>
 </suite>
+
