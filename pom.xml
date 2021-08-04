@@ -11,6 +11,91 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <testng.configs.path>${project.build.testOutputDirectory}/testng</testng.configs.path>
+
+        <testng.version>7.4.0</testng.version>
+        <assertj-core.version>3.20.2</assertj-core.version>
+        <calculator-app.version>1.0</calculator-app.version>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${testng.suite.file}</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>com.calculator</groupId>
+                            <artifactId>calculator-app</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/lib/calculator-1.0.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>for_all_tests_plugin</id>
+            <properties>
+                <testng.suite.file>${testng.configs.path}/for.all.tests.xml</testng.suite.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>for_the_second_group_plugin</id>
+            <properties>
+                <testng.suite.file>${testng.configs.path}/for.the.second.group.xml</testng.suite.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>for_the_first_group_plugin</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <testng.suite.file>${testng.configs.path}/for.the.first.group.xml</testng.suite.file>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.calculator</groupId>
+            <artifactId>calculator-app</artifactId>
+            <version>${calculator-app.version}</version>
+        </dependency>
+    </dependencies>
 </project>

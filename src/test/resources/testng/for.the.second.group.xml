@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="suiteForTheSecondGroupOfTests" >
+    <test name="TestingMultAndDevOperations" >
+        <groups>
+            <run>
+                <include name="secondGroup"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.epam.tc.hw1"/>
+            <package name="com.epam.tc.hw1.pow.operations"/>
+        </packages>
+    </test>
+</suite>
+
