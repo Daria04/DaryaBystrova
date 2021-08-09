@@ -2,6 +2,9 @@ package com.epam.tc.hw2.ex2;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import com.epam.tc.hw2.TestService;
+import java.util.ArrayList;
+import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -41,7 +44,7 @@ public class SecondExercise extends TestService {
         WebElement serviceItem = driver.findElement(SERVICE_BUTTON);
         serviceItem.click();
 
-        WebElement differentElementsItem = (new WebDriverWait(driver, 5))
+        WebElement differentElementsItem = webDriverWait
                 .until(ExpectedConditions.visibilityOfElementLocated(DIFFERENT_ELEMENTS_BUTTON));
         differentElementsItem.click();
 
@@ -53,8 +56,8 @@ public class SecondExercise extends TestService {
         windItem.click();
 
         //7. Select radio
-        WebElement selenItem = ((new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.visibilityOfElementLocated(SELEN_ITEM_CHECK_BOX)));
+        WebElement selenItem = webDriverWait
+                .until(ExpectedConditions.visibilityOfElementLocated(SELEN_ITEM_CHECK_BOX));
         selenItem.click();
 
         //8. Select in dropdown
@@ -65,21 +68,19 @@ public class SecondExercise extends TestService {
         // for each checkbox there is an individual log row and value is corresponded to the status of checkbox
         // for radio button there is a log row and value is corresponded to the status of radio button
         // for dropdown there is a log row and value is corresponded to the selected value.
-        boolean isSpecialStatusForWaterItemPresent = driver.findElement(LOG_ROW_FOR_WATER_ITEM).isDisplayed();
-        assertThat(isSpecialStatusForWaterItemPresent).isTrue();
+        List<WebElement> specialStatusForAllElements = new ArrayList<>();
 
-        boolean isSpecialStatusForWindItemPresent = driver.findElement(LOG_ROW_FOR_WIND_ITEM).isDisplayed();
-        assertThat(isSpecialStatusForWindItemPresent).isTrue();
+        specialStatusForAllElements.add(driver.findElement(LOG_ROW_FOR_WATER_ITEM));
+        specialStatusForAllElements.add(driver.findElement(LOG_ROW_FOR_WIND_ITEM));
+        specialStatusForAllElements.add(driver.findElement(LOG_ROW_FOR_RADIO_BUTTON));
 
-        boolean isSpecialStatusForRadioButtonPresent = driver.findElement(LOG_ROW_FOR_RADIO_BUTTON).isDisplayed();
-        assertThat(isSpecialStatusForRadioButtonPresent).isTrue();
+        for (WebElement specialStatus : specialStatusForAllElements) {
+            assertThat(specialStatus.isDisplayed()).isTrue();
+        }
 
-        boolean isSpecialStatusForDropdownPresent = (new WebDriverWait(driver, 5))
+        boolean isSpecialStatusForDropdownPresent = webDriverWait
                 .until(ExpectedConditions.invisibilityOfElementWithText(LOG_ROW_FOR_DROPDOWN, "Log row  is displayed"));
         assertThat(isSpecialStatusForDropdownPresent).isTrue();
-
-
-
 
     }
 

@@ -1,9 +1,11 @@
 package com.epam.tc.hw2.ex1;
 
+import com.epam.tc.hw2.TestService;
+import java.util.ArrayList;
+import java.util.List;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class FirstExercise extends TestService {
@@ -24,7 +26,7 @@ public class FirstExercise extends TestService {
         WebElement signIn = driver.findElement(SIGN_IN_BUTTON);
         signIn.click();
 
-        WebElement login = (new WebDriverWait(driver, 5))
+        WebElement login = webDriverWait
                 .until(ExpectedConditions.visibilityOfElementLocated(LOGIN_INPUT_BUTTON));
         login.sendKeys(LOGIN_DATA);
 
@@ -39,59 +41,44 @@ public class FirstExercise extends TestService {
         softly.assertThat(actualData).isEqualTo(EXPECTED_DATA);
 
         //5. Assert that there are 4 items on the header section are displayed and they have proper texts
-        String actualHomeData = driver.findElement(HOME_BUTTON).getText();
-        softly.assertThat(actualHomeData).isEqualTo(EXPECTED_HOME_DATA);
+        List<WebElement> allActualData = new ArrayList<>();
 
-        boolean isHomeImagePresent = driver.findElement(HOME_BUTTON).isDisplayed();
-        softly.assertThat(isHomeImagePresent).isTrue();
+        allActualData.add(driver.findElement(HOME_BUTTON));
+        allActualData.add(driver.findElement(CONTACT_FORM_BUTTON));
+        allActualData.add(driver.findElement(SERVICE_BUTTON));
+        allActualData.add(driver.findElement(METALS_AND_COLORS_BUTTON));
 
-        String actualContactFormData = driver.findElement(CONTACT_FORM_BUTTON).getText();
-        softly.assertThat(actualContactFormData).isEqualTo(EXPECTED_CONTACT_FORM_DATA);
+        for (WebElement actualItem : allActualData) {
+            softly.assertThat(actualItem.isDisplayed()).isTrue();
+        }
 
-        boolean isContactFormImagePresent = driver.findElement(HOME_BUTTON).isDisplayed();
-        softly.assertThat(isContactFormImagePresent).isTrue();
+        List<String> allActualDataOnTheHeaderSection = new ArrayList<>();
+        allActualData.stream()
+                .map(WebElement::getText)
+                .forEach(allActualDataOnTheHeaderSection::add);
 
-        String actualServiceData = driver.findElement(SERVICE_BUTTON).getText();
-        softly.assertThat(actualServiceData).isEqualTo(EXPECTED_SERVICE_DATA);
-
-        boolean isServiceImagePresent = driver.findElement(SERVICE_BUTTON).isDisplayed();
-        softly.assertThat(isServiceImagePresent).isTrue();
-
-        String actualMetalsAndColorsData = driver.findElement(METALS_AND_COLORS_BUTTON).getText();
-        softly.assertThat(actualMetalsAndColorsData).isEqualTo(EXPECTED_METALS_AND_COLORS_DATA);
-
-        boolean isMetalsAndColorsImagePresent = driver.findElement(METALS_AND_COLORS_BUTTON).isDisplayed();
-        softly.assertThat(isMetalsAndColorsImagePresent).isTrue();
+        boolean containsData = expectedData().containsAll(allActualDataOnTheHeaderSection);
+        softly.assertThat(containsData).isTrue();
 
         //6. Assert that there are 4 images on the Index Page and they are displayed
-        WebElement firstImage = driver.findElement(FIRST_ICON);
-        boolean firstImagePresent = firstImage.isDisplayed();
-        softly.assertThat(firstImagePresent).isTrue();
+        List<WebElement> allImages = driver.findElements(ALL_IMAGES_ON_THE_INDEX_PAGE);
 
-        boolean isSecondImagePresent = driver.findElement(SECOND_ICON).isDisplayed();
-        softly.assertThat(isSecondImagePresent).isTrue();
-
-        boolean isThirdImagePresent = driver.findElement(THIRD_ICON).isDisplayed();
-        softly.assertThat(isThirdImagePresent).isTrue();
-
-        boolean fourthImagePresent = driver.findElement(FOURTH_ICON).isDisplayed();
-        softly.assertThat(fourthImagePresent).isTrue();
+        for (WebElement image : allImages) {
+            softly.assertThat(image.isDisplayed()).isTrue();
+        }
 
         //7. Assert that there are 4 texts on the Index Page under icons and they have proper text
-        String actualTextUnderFirstImage = driver.findElement(TEXT_UNDER_FIRST_IMAGE).getText();
-        softly.assertThat(actualTextUnderFirstImage).isEqualTo(EXPECTED_TEXT_UNDER_FIRST_IMAGE);
+        List<String> allActualText = new ArrayList<>();
+        driver.findElements(TEXT_UNDER_ALL_IMAGES)
+                .stream()
+                .map(WebElement::getText)
+                .forEach(allActualText::add);
 
-        String actualTextUnderSecondImage = driver.findElement(TEXT_UNDER_SECOND_IMAGE).getText();
-        softly.assertThat(actualTextUnderSecondImage).isEqualTo(EXPECTED_TEXT_UNDER_SECOND_IMAGE);
-
-        String actualTextUnderThirdImage = driver.findElement(TEXT_UNDER_THIRD_IMAGE).getText();
-        softly.assertThat(actualTextUnderThirdImage).isEqualTo(EXPECTED_TEXT_UNDER_THIRD_IMAGE);
-
-        String actualTextUnderFourthImage = driver.findElement(TEXT_UNDER_FOURTH_IMAGE).getText();
-        softly.assertThat(actualTextUnderFourthImage).isEqualTo(EXPECTED_TEXT_UNDER_FOURTH_IMAGE);
+        boolean containsText = expectedData().containsAll(allActualText);
+        softly.assertThat(containsText).isTrue();
 
         //8. Assert that there is the iframe with “Frame Button” exist
-        boolean isActualIframeExists = (new WebDriverWait(driver, 5))
+        boolean isActualIframeExists = webDriverWait
                 .until(ExpectedConditions.invisibilityOfElementWithText(IFRAME, "The iframe exists"));
         softly.assertThat(isActualIframeExists).isTrue();
 
@@ -99,8 +86,7 @@ public class FirstExercise extends TestService {
         WebElement iframeElement = driver.findElement(IFRAME);
         driver.switchTo().frame(iframeElement);
 
-        boolean isFrameButtonElementPresent = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions
+        boolean isFrameButtonElementPresent = webDriverWait.until(ExpectedConditions
                         .invisibilityOfElementWithText(FRAME_BUTTON, "The 'Frame Button' exists"));
         softly.assertThat(isFrameButtonElementPresent).isTrue();
 
@@ -108,28 +94,26 @@ public class FirstExercise extends TestService {
         driver.switchTo().defaultContent();
 
         //11. Assert that there are 5 items in the Left Section are displayed and they have proper text
-        boolean isHomeItemDisplayed = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.invisibilityOfElementWithText(HOME_ITEM, "Home item exists"));
-        softly.assertThat(isHomeItemDisplayed).isTrue();
+        List<WebElement> allActualItems = new ArrayList<>();
 
-        boolean isContactFormItemDisplayed = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.invisibilityOfElementWithText(CONTACT_FORM_ITEM, "Home item exists"));
-        softly.assertThat(isContactFormItemDisplayed).isTrue();
+        allActualItems.add(driver.findElement(HOME_ITEM));
+        allActualItems.add(driver.findElement(CONTACT_FORM_ITEM));
+        allActualItems.add(driver.findElement(SERVICE_ITEM));
+        allActualItems.add(driver.findElement(METALS_AND_COLORS_ITEM));
+        allActualItems.add(driver.findElement(ELEMENTS_PACKS_ITEM));
 
-        boolean isServiceItemDisplayed = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.invisibilityOfElementWithText(SERVICE_ITEM, "Home item exists"));
-        softly.assertThat(isServiceItemDisplayed).isTrue();
+        for (WebElement actualItem : allActualItems) {
+            softly.assertThat(actualItem.isDisplayed()).isTrue();
+        }
 
-        boolean isMetalsAndColorsItemDisplayed = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.invisibilityOfElementWithText(METALS_AND_COLORS_ITEM, "Home item exists"));
-        softly.assertThat(isMetalsAndColorsItemDisplayed).isTrue();
+        List<String> allActualItemsInTheLeftSection = new ArrayList<>();
+        allActualItems.stream()
+                .map(WebElement::getText)
+                .forEach(allActualItemsInTheLeftSection::add);
 
-        boolean isElementsPacksItemDisplayed = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.invisibilityOfElementWithText(ELEMENTS_PACKS_ITEM, "Home item exists"));
-        softly.assertThat(isElementsPacksItemDisplayed).isTrue();
+        boolean containsItems = expectedData().containsAll(allActualItemsInTheLeftSection);
+        softly.assertThat(containsItems).isTrue();
 
         softly.assertAll();
-
     }
-
 }
