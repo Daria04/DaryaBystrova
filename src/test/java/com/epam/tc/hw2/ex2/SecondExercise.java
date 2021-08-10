@@ -3,7 +3,6 @@ package com.epam.tc.hw2.ex2;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.epam.tc.hw2.TestService;
-import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -68,19 +67,11 @@ public class SecondExercise extends TestService {
         // for each checkbox there is an individual log row and value is corresponded to the status of checkbox
         // for radio button there is a log row and value is corresponded to the status of radio button
         // for dropdown there is a log row and value is corresponded to the selected value.
-        List<WebElement> specialStatusForAllElements = new ArrayList<>();
-
-        specialStatusForAllElements.add(driver.findElement(LOG_ROW_FOR_WATER_ITEM));
-        specialStatusForAllElements.add(driver.findElement(LOG_ROW_FOR_WIND_ITEM));
-        specialStatusForAllElements.add(driver.findElement(LOG_ROW_FOR_RADIO_BUTTON));
+        List<WebElement> specialStatusForAllElements = driver.findElements(LOCATOR_FOR_LOG_ROW);
 
         for (WebElement specialStatus : specialStatusForAllElements) {
-            assertThat(specialStatus.isDisplayed()).isTrue();
+            assertThat(specialStatus.isDisplayed());
         }
-
-        boolean isSpecialStatusForDropdownPresent = webDriverWait
-                .until(ExpectedConditions.invisibilityOfElementWithText(LOG_ROW_FOR_DROPDOWN, "Log row  is displayed"));
-        assertThat(isSpecialStatusForDropdownPresent).isTrue();
 
     }
 
