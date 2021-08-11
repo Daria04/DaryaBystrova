@@ -18,6 +18,9 @@
         <testng.version>7.4.0</testng.version>
         <assertj-core.version>3.20.2</assertj-core.version>
         <calculator-app.version>1.0</calculator-app.version>
+        <webdrivermanager.version>4.4.3</webdrivermanager.version>
+        <selenium-java.version>3.141.59</selenium-java.version>
+        <slf4j-simple.version>1.7.31</slf4j-simple.version>
     </properties>
 
     <build>
@@ -77,6 +80,12 @@
                 <testng.suite.file>${testng.configs.path}/for.the.first.group.xml</testng.suite.file>
             </properties>
         </profile>
+        <profile>
+            <id>for_all_tests_from_second_hw</id>
+            <properties>
+                <testng.suite.file>${testng.configs.path}/for.all.tests.from.second.hw.xml</testng.suite.file>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
@@ -96,6 +105,21 @@
             <groupId>com.calculator</groupId>
             <artifactId>calculator-app</artifactId>
             <version>${calculator-app.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-simple.version}</version>
         </dependency>
     </dependencies>
 </project>
