@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="suiteForAllTestsFromThirdHomeWork" >
+    <test name="testingTwoTestMethods" >
+        <packages>
+            <package name="com.epam.tc.hw3.test"/>
+        </packages>
+    </test>
+</suite>

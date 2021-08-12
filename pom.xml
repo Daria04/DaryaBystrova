@@ -86,6 +86,12 @@
                 <testng.suite.file>${testng.configs.path}/for.all.tests.from.second.hw.xml</testng.suite.file>
             </properties>
         </profile>
+        <profile>
+            <id>for_all_tests_from_third_hw</id>
+            <properties>
+                <testng.suite.file>${testng.configs.path}/for.all.tests.from.third.hw.xml</testng.suite.file>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
