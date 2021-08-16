@@ -2,7 +2,6 @@ package com.epam.tc.hw3.test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.epam.tc.hw3.BaseTest;
 import com.epam.tc.hw3.Constants;
 import com.epam.tc.hw3.Utils;
 import com.epam.tc.hw3.page.DifferentElementsPage;
@@ -32,5 +31,6 @@ public class SecondExerciseTest extends BaseTest {
         differentElements.colorInputButtonClick();
         differentElements.yellowButtonClick();
         assertThat(differentElements.areLogRowsDisplayed());
+        assertThat(differentElements.actualLogRows().containsAll(Constants.EXPECTED_LOG_ROWS));
     }
 }

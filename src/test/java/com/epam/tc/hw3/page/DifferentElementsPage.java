@@ -1,6 +1,7 @@
 package com.epam.tc.hw3.page;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class DifferentElementsPage extends AbstractBasePage {
 
-    @FindBy(css = ".label-checkbox")
+    @FindBy(css = ".label-checkbox:first-of-type")
     WebElement waterCheckbox;
 
     @FindBy(xpath = "//label[@class='label-checkbox']/following-sibling::label/following-sibling::label")
@@ -59,5 +60,12 @@ public class DifferentElementsPage extends AbstractBasePage {
             }
         }
         return true;
+    }
+
+    public List<String> actualLogRows() {
+        return logRows
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
     }
 }

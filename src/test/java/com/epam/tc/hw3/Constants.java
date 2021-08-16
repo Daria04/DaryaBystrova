@@ -14,5 +14,8 @@ public class Constants {
                             + "(about 20 internal and\n" + "some external projects),\n" + "wish to get more…");
     public static final List<String> EXPECTED_ITEMS_IN_THE_LEFT_SECTION =
             List.of("Home", "Contact form", "Service", "Metals & Colors", "Elements packs");
+    public static final List<String> EXPECTED_LOG_ROWS =
+            List.of("Colors: value changed to Yellow", "metal: value changed to Selen",
+                    "Wind: condition changed to true", "Water: condition changed to true");
 
 }

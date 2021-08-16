@@ -1,6 +1,5 @@
 package com.epam.tc.hw3.test;
 
-import com.epam.tc.hw3.BaseTest;
 import com.epam.tc.hw3.Constants;
 import com.epam.tc.hw3.Utils;
 import com.epam.tc.hw3.page.MainMenuPage;
