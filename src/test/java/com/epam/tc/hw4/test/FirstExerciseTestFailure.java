@@ -11,15 +11,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 public class FirstExerciseTestFailure extends BaseTest {
@@ -51,17 +43,6 @@ public class FirstExerciseTestFailure extends BaseTest {
                 .isEqualTo(Constants.EXPECTED_ITEMS_IN_THE_LEFT_SECTION);
         assertThat(mainMenuPage.areLeftSectionItemsDisplayed());
         assertThat(mainMenuPage.isButtonClickDisplayed());
-    }
-
-    @AfterMethod
-    public void takeScreenshotOnFailure(ITestResult result) throws IOException {
-        if (result.getStatus() == ITestResult.FAILURE) {
-            System.out.println(result.getStatus());
-            File screenFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(screenFile, new File("errorScreenshot\\"
-                    + result.getName() + Arrays.toString(result.getParameters()) + ".jpg"));
-
-        }
     }
 }
 

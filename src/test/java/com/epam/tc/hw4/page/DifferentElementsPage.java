@@ -34,8 +34,7 @@ public class DifferentElementsPage extends AbstractBasePage {
 
     @Step("Selecting Water and Wind checkboxes")
     public void checkboxesClick() {
-        wait.until(ExpectedConditions.visibilityOf(waterCheckbox));
-        waterCheckbox.click();
+        wait.until(ExpectedConditions.visibilityOf(waterCheckbox)).click();
         windCheckbox.click();
     }
 
@@ -47,8 +46,7 @@ public class DifferentElementsPage extends AbstractBasePage {
     @Step("Selecting Yellow in dropdown")
     public void yellowButtonClick() {
         colorInputButton.click();
-        wait.until(ExpectedConditions.visibilityOf(yellowButton));
-        yellowButton.click();
+        wait.until(ExpectedConditions.visibilityOf(yellowButton)).click();
     }
 
     @Step("Verify Log Rows")

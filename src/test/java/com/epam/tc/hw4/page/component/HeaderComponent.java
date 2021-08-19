@@ -34,8 +34,7 @@ public class HeaderComponent extends AbstractBasePage {
 
     @Step("Verify User name is logged in")
     public String checkUserName() {
-        wait.until(ExpectedConditions.visibilityOf(userNameButton));
-        return userNameButton.getText();
+        return wait.until(ExpectedConditions.visibilityOf(userNameButton)).getText();
     }
 
     @Step("Verify items on the Header Section")
