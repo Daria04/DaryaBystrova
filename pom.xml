@@ -21,6 +21,8 @@
         <webdrivermanager.version>4.4.3</webdrivermanager.version>
         <selenium-java.version>3.141.59</selenium-java.version>
         <slf4j-simple.version>1.7.31</slf4j-simple.version>
+        <allure.version>2.14.0</allure.version>
+        <aspectj.version>1.9.7</aspectj.version>
     </properties>
 
     <build>
@@ -30,10 +32,20 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
                 <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>${testng.suite.file}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -74,7 +86,7 @@
         <profile>
             <id>for_the_first_group_plugin</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+<!--                <activeByDefault>true</activeByDefault>-->
             </activation>
             <properties>
                 <testng.suite.file>${testng.configs.path}/for.the.first.group.xml</testng.suite.file>
@@ -90,6 +102,15 @@
             <id>for_all_tests_from_third_hw</id>
             <properties>
                 <testng.suite.file>${testng.configs.path}/for.all.tests.from.third.hw.xml</testng.suite.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>for_tests_from_fourth_hw</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <testng.suite.file>${testng.configs.path}/for.tests.from.fourth.hw.xml</testng.suite.file>
             </properties>
         </profile>
     </profiles>
@@ -127,5 +148,25 @@
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j-simple.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
     </dependencies>
+
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version>
+                <configuration>
+                    <reportVersion>${allure.version}</reportVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
 </project>
