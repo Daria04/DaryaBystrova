@@ -11,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 
 public class ScreenshotListener implements ITestListener {
 
@@ -23,6 +22,13 @@ public class ScreenshotListener implements ITestListener {
         driver = (WebDriver) context.getAttribute("driver");
 
         if (driver != null) {
+            File screenFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            try {
+                FileUtils.copyFile(screenFile, new File("errorScreenshot\\"
+                        + result.getName() + Arrays.toString(result.getParameters()) + ".jpg"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             saveFailureScreenShot(driver);
         }
     }
@@ -30,15 +36,5 @@ public class ScreenshotListener implements ITestListener {
     @Attachment
     public byte[] saveFailureScreenShot(WebDriver driver) {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-    }
-
-    @AfterMethod
-    public void takeScreenshotOnFailure(ITestResult result) throws IOException {
-        if (result.getStatus() == ITestResult.FAILURE) {
-            System.out.println(result.getStatus());
-            File screenFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(screenFile, new File("errorScreenshot\\"
-                    + result.getName() + Arrays.toString(result.getParameters()) + ".jpg"));
-        }
     }
 }
