@@ -86,9 +86,6 @@
         </profile>
         <profile>
             <id>for_the_first_group_plugin</id>
-            <activation>
-<!--                <activeByDefault>true</activeByDefault>-->
-            </activation>
             <properties>
                 <testng.suite.file>${testng.configs.path}/for.the.first.group.xml</testng.suite.file>
             </properties>
@@ -113,11 +110,17 @@
         </profile>
         <profile>
             <id>cucumber_suite_fifth_hw</id>
+            <properties>
+                <testng.suite.file>${testng.configs.path}/cucumber.suite.fifth.hw.xml</testng.suite.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>selenium_grid_suite_six_hw</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <testng.suite.file>${testng.configs.path}/cucumber.suite.fifth.hw.xml</testng.suite.file>
+                <testng.suite.file>${testng.configs.path}/selenium.grid.suite.six.hw.xml</testng.suite.file>
             </properties>
         </profile>
     </profiles>
