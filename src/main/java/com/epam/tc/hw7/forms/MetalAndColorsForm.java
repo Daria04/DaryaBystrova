@@ -1,0 +1,63 @@
+package com.epam.tc.hw7.forms;
+
+import com.epam.jdi.light.elements.complex.Checklist;
+import com.epam.jdi.light.elements.complex.dropdown.Dropdown;
+import com.epam.jdi.light.elements.composite.Form;
+import com.epam.jdi.light.elements.pageobjects.annotations.locators.JDropdown;
+import com.epam.jdi.light.elements.pageobjects.annotations.locators.UI;
+import com.epam.jdi.light.ui.html.elements.common.Button;
+import com.epam.jdi.light.ui.html.elements.common.Checkbox;
+import com.epam.jdi.light.ui.html.elements.complex.RadioButtons;
+import com.epam.tc.hw7.entities.MetalAndColors;
+
+public class MetalAndColorsForm extends Form<MetalAndColors> {
+
+    @UI("[name='custom_radio_odd']") private RadioButtons oddRadioButtons;
+
+    @UI("[name='custom_radio_even']") private RadioButtons evenRadioButtons;
+
+    @UI(".vertical-group .uui-form-element") private Checklist listOfElements;
+
+    @JDropdown(root = ".colors",
+            value = ".selectpicker",
+            list = "li",
+            expand = ".caret")
+    private Dropdown colorsDropdown;
+
+    @JDropdown(root = ".salad .salad",
+            value = ".dropdown-menu",
+            list = ".salad li",
+            expand = ".caret")
+    private Dropdown vegetablesDropdown;
+
+    @JDropdown(root = ".metals",
+            value = ".selectpicker",
+            list = "li",
+            expand = ".caret")
+    private Dropdown metalsDropdown;
+
+    @UI("#g7") private Checkbox vegetablesCheckbox;
+
+    @UI("#submit-button") private Button submitButton;
+
+    public void fillMainContentForm(MetalAndColors metalAndColors) {
+
+        oddRadioButtons.select(metalAndColors.getSummary().get(0).toString());
+        evenRadioButtons.select(metalAndColors.getSummary().get(1).toString());
+
+        for (String item : metalAndColors.getElements()) {
+            listOfElements.select(String.valueOf(item));
+        }
+
+        colorsDropdown.select(metalAndColors.getColor());
+        metalsDropdown.select(metalAndColors.getMetals());
+
+
+        for (String item : metalAndColors.getVegetables()) {
+            vegetablesDropdown.select(String.valueOf(item));
+        }
+        vegetablesCheckbox.click();
+
+        submitButton.click();
+    }
+}
