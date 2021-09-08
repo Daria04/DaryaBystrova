@@ -146,11 +146,7 @@
          <spel:text>?</spel:text>
       </spel:CheckTextsRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://speller.yandex.net/services/spellservice/checkTexts"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="aff7c343-e661-4c8f-b6fd-1910e0f04640" name="CheckText TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="2411c630-7748-4be2-8d6d-c834906d0f14" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PositiveLanguageCase" searchProperties="true"><con:settings/><con:testStep type="groovy" name="SetUpAndTearDown" id="aa8b5111-bc2f-458f-ada7-9635ee60c24b"><con:settings/><con:config><script>testRunner.testCase.testSuite.project.getTestSuiteByName("CheckText TestSuite").getTestCaseByName("PositiveLanguageCase").setSetupScript("log.info 'set up for PositiveLanguageCase'")
-testRunner.testCase.testSuite.project.getTestSuiteByName("CheckText TestSuite").getTestCaseByName("PositiveLanguageCase").setTearDownScript("log.info 'tear down for PositiveLanguageCase'")
-
-log.info(testRunner.testCase.getSetupScript());
-log.info(testRunner.testCase.getTearDownScript());</script></con:config></con:testStep><con:testStep type="request" id="4de83a33-fb27-42a4-ba40-5af7c83c2ccc" name="CheckLanguage"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SpellServiceSoap</con:interface><con:operation>checkText</con:operation><con:request name="CheckLanguage" id="289008ff-2ec8-4720-a367-3858f8b2cf5b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#url}/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://speller.yandex.net/services/spellservice/checkTexts"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="aff7c343-e661-4c8f-b6fd-1910e0f04640" name="CheckText TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="2411c630-7748-4be2-8d6d-c834906d0f14" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PositiveLanguageCase" searchProperties="true"><con:settings/><con:testStep type="request" id="4de83a33-fb27-42a4-ba40-5af7c83c2ccc" name="CheckLanguage"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SpellServiceSoap</con:interface><con:operation>checkText</con:operation><con:request name="CheckLanguage" id="289008ff-2ec8-4720-a367-3858f8b2cf5b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#url}/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
    <soapenv:Header/>
    <soapenv:Body>
       <spel:CheckTextRequest lang="${#TestSuite#lang}" options="0" format="">
@@ -257,15 +253,29 @@ log.info item</script></con:config></con:testStep><con:properties/></con:testCas
 def projectDir = groovyUtils.projectPath
 def inputFilePath = testRunner.testCase.testSuite.getPropertyValue("inputFile")
 
-File file = new File(projectDir, inputFilePath.toString()).eachLine{
-	testRunner.testCase.testSuite.setPropertyValue("string", it.split(";")[1])
+File file = new File (projectDir, inputFilePath.toString()).eachLine{
 
-	def tc = testRunner.testCase.testSuite.testCases["VariousCombinationsCase"]
+	try {
+	     testRunner.testCase.testSuite.setPropertyValue("string", it.split(";")[1])
 
-	def runner = tc.run(null, false)
+	     def tc = testRunner.testCase.testSuite.testCases["VariousCombinationsCase"]
+
+	     def runner = tc.run(null, false)
 	
-	log.info("${runner.status}")
-	sleep 500
-	
+	     log.info("${runner.status}")
+	     sleep 500
+	     1/0
+	}
+	catch(Exception) {
+		log.error("Exception was thrown")
+	}
 }
-</script></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>inputFile</con:name><con:value>/Data.csv</con:value></con:property><con:property><con:name>string</con:name><con:value>;abcde</con:value></con:property></con:properties></con:testSuite><con:properties><con:property><con:name>url</con:name><con:value>http://speller.yandex.net</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+</script></con:config></con:testStep><con:setupScript>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+def inputFilePath = testRunner.testCase.testSuite.getPropertyValue("inputFile")
+
+def myFile = new File(projectDir, inputFilePath)
+
+def lines = myFile.readLines()
+
+assert lines.size == 5</con:setupScript><con:tearDownScript/><con:properties/></con:testCase><con:properties><con:property><con:name>inputFile</con:name><con:value>/Data.csv</con:value></con:property><con:property><con:name>string</con:name><con:value>ab_cde</con:value></con:property></con:properties></con:testSuite><con:properties><con:property><con:name>url</con:name><con:value>http://speller.yandex.net</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
