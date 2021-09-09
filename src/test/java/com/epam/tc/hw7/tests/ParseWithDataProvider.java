@@ -16,8 +16,7 @@ public class ParseWithDataProvider {
         Map<String, MetalAndColors> metalAndColorsMap = new ObjectMapper().readValue(
                 new File(Utils.JSON_PATH),
                 new TypeReference<>() {});
-        Object[][] jsonObj = convertJsonObjToArrayOfObj(metalAndColorsMap);
-        return jsonObj;
+        return convertJsonObjToArrayOfObj(metalAndColorsMap);
     }
 
     public static Object[][] convertJsonObjToArrayOfObj(Map<String, MetalAndColors> map) {

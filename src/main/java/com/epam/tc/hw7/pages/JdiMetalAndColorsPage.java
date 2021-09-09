@@ -18,7 +18,7 @@ public class JdiMetalAndColorsPage extends WebPage {
     private MetalAndColorsForm metalAndColorsForm;
 
     public void fillMainForm(MetalAndColors metalAndColors) {
-        metalAndColorsForm.fillMainContentForm(metalAndColors);
+        metalAndColorsForm.submit(metalAndColors);
     }
 
     public String getResult() {

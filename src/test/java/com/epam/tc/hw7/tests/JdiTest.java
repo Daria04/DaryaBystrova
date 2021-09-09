@@ -18,7 +18,7 @@ public class JdiTest implements TestsInit {
         JdiSite.login(ROMAN);
         jdiHomePage.userName.is().text(ROMAN.getFullName());
         JdiSite.openMetalAndColorsPage();
-        JdiSite.jdiMetalAndColorsPage.fillMainForm(metalAndColors);
+        jdiMetalAndColorsPage.fillMainForm(metalAndColors);
         Assert.assertEquals(JdiSite.jdiMetalAndColorsPage.getResult(), metalAndColors.toString());
         jdiMetalAndColorsPage.logout();
     }

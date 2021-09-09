@@ -40,24 +40,19 @@ public class MetalAndColorsForm extends Form<MetalAndColors> {
 
     @UI("#submit-button") private Button submitButton;
 
-    public void fillMainContentForm(MetalAndColors metalAndColors) {
-
+    @Override
+    public void submit(MetalAndColors metalAndColors) {
         oddRadioButtons.select(metalAndColors.getSummary().get(0).toString());
         evenRadioButtons.select(metalAndColors.getSummary().get(1).toString());
 
-        for (String item : metalAndColors.getElements()) {
-            listOfElements.select(String.valueOf(item));
-        }
+        metalAndColors.getElements().forEach(listOfElements::select);
 
         colorsDropdown.select(metalAndColors.getColor());
         metalsDropdown.select(metalAndColors.getMetals());
 
+        metalAndColors.getVegetables().forEach(vegetablesDropdown::select);
 
-        for (String item : metalAndColors.getVegetables()) {
-            vegetablesDropdown.select(String.valueOf(item));
-        }
         vegetablesCheckbox.click();
-
         submitButton.click();
     }
 }
