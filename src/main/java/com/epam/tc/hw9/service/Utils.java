@@ -7,13 +7,11 @@ import java.util.Properties;
 
 public class Utils {
 
-    public static String BASE_URI;
-    public static String API_KEY;
-    public static String TOKEN;
-    public static String BOARD_NAME;
-    public static String LIST_NAME;
-    public static String CARD_NAME;
-    public static String NEW_CARD_NAME;
+    private static String BASE_URI;
+
+    public static String getBaseUri() {
+        return BASE_URI;
+    }
 
     static {
 
@@ -21,17 +19,10 @@ public class Utils {
     }
 
     public static void readCreds() {
-        try (InputStream input = new FileInputStream("src/test/resources/trello/config.properties")) {
+        try (InputStream input = new FileInputStream("src/test/resources/yandex_speller/config.properties")) {
             Properties prop = new Properties();
             prop.load(input);
             BASE_URI = prop.getProperty("base_uri");
-            API_KEY = prop.getProperty("key");
-            TOKEN = prop.getProperty("token");
-            BOARD_NAME = prop.getProperty("boardName");
-            LIST_NAME = prop.getProperty("listName");
-            CARD_NAME = prop.getProperty("cardName");
-            NEW_CARD_NAME = prop.getProperty("newCardName");
-
 
         } catch (IOException e) {
             e.printStackTrace();
